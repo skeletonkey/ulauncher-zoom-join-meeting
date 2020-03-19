@@ -1,0 +1,44 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "Zoom - Join a meeting",
+  "description": "Quick way to join a meeting - default browser is required.",
+  "developer_name": "Erik Tank",
+  "icon": "images/zoom_icon.png",
+  "options": {
+    "query_debounce": 0.1
+  },
+  "preferences": [
+    {
+      "id": "zoom_kw",
+      "type": "keyword",
+      "name": "Zoom",
+      "description": "Keyword to call this extension",
+      "default_value": "zoom"
+    },
+    {
+      "id": "base_uri",
+      "type": "text",
+      "name": "Zoom Base URI",
+      "description": "Company specific zoom base URI",
+      "default_value": "zoom.com"
+    },
+    {
+      "id": "link_type",
+      "type": "select",
+      "options": [
+        {"value": "auto", "text":  "Automatically attempt to select ID or Personal Link"},
+        {"value": "manual", "text":  "Manually indicate Personal Link using 'my'"}
+      ],
+      "name": "Auto or Manual link type determination",
+      "description": "Zoom offers two type of links (via ID or via Personal Link). Either manually indicate this by providing 'my' before the ID or letting the script determine.",
+      "default_value": "auto"
+    },
+    {
+      "id": "shortcuts",
+      "type": "text",
+      "name": "Shortcuts",
+      "description": "List of shortcuts in the format of keys and values separate by colon and pairs separate by semi-colon: name:zoom_id;name2:zoom_id2",
+      "default_value": "erik:555-555-1234;team:555-555-1235"
+    }
+  ]
+}
