@@ -1,6 +1,6 @@
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
-from ulauncher.api.shared.event import KeywordQueryEvent, PreferencesEvent, PreferencesUpdateEvent
+from ulauncher.api.shared.event import ItemEnterEvent, KeywordQueryEvent, PreferencesEvent, PreferencesUpdateEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.OpenUrlAction import OpenUrlAction
@@ -11,6 +11,7 @@ import sys
 
 logger = logging.getLogger(__name__)
 shortcuts = {}
+history = {}
 
 def updateShortcuts(shortcutString):
     shortcuts.clear
@@ -31,9 +32,15 @@ def checkForShortcut(string):
 class ZoomJoinMeeting(Extension):
     def __init__(self):
         super(ZoomJoinMeeting, self).__init__()
+        self.subscribe(ItemEnterEvent, UserHitEnterListener())
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
         self.subscribe(PreferencesEvent, PreferencesLoadListener())
         self.subscribe(PreferencesUpdateEvent, PreferencesUpdateListener())
+
+class UserHitEnterListener(EventListener):
+    def on_event(self, event, extension):
+        zoomId = event.get_data()
+        logger.info("User entered zoom id: %s" % (zoomId))
 
 class PreferencesLoadListener(EventListener):
     def on_event(self, event, extension):
@@ -105,7 +112,15 @@ class KeywordQueryEventListener(EventListener):
                 on_enter = OpenUrlAction(fullUri)
             )
 
+        historyItems = []
+        if extension.preferences['history'] == 'yes':
+            historyItems = getHistoricalItems(userInputs, extension.preferences['history_count'])
+
         return RenderResultListAction([resultItem])
+
+    def getHistoricalItems(userInputs, count):
+        return []
+
 
 if __name__ == '__main__':
     ZoomJoinMeeting().run()

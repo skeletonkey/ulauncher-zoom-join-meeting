@@ -39,6 +39,38 @@
       "name": "Shortcuts",
       "description": "List of shortcuts in the format of keys and values separate by colon and pairs separate by semi-colon: name:zoom_id;name2:zoom_id2",
       "default_value": "erik:555-555-1234;team:555-555-1235"
+    },
+    {
+      "id": "history",
+      "type": "select",
+      "name": "Keep History",
+      "options": [
+        {"value": "yes", "text":  "Enable"},
+        {"value": "no", "text":  "Disable"}
+      ],
+      "description": "Keep a history of zooms used and provide them as options while typing",
+      "default_value": "no"
+    },
+    {
+      "id": "history_count",
+      "type": "text",
+      "name": "Number of suggestions",
+      "description": "Number of suggestions to show",
+      "default_value": "5"
+    },
+    {
+      "id": "history_age",
+      "type": "text",
+      "name": "Age (in days)",
+      "description": "Number of days to keep an unused Zoom ID",
+      "default_value": "7"
+    },
+    {
+      "id": "history_max",
+      "type": "text",
+      "name": "Max Zoom IDs to keep",
+      "description": "Max number Zoom IDs to keep - uses ",
+      "default_value": "100"
     }
   ]
 }
